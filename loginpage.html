@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication Flow</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="sty.css">
+</head>
+<body>
+    <div class="container">
+        <div class="welcome-section">
+            <h1>Welcome to our Website</h1>
+            <p>Join our community and experience the best services we have to offer. Sign in to access your personalized dashboard and explore exclusive features.</p>
+            
+            <ul class="features">
+                <li><i class="fas fa-check"></i> Secure and reliable authentication</li>
+                <li><i class="fas fa-check"></i> Personalized user experience</li>
+                <li><i class="fas fa-check"></i> Access to exclusive content</li>
+                <li><i class="fas fa-check"></i> 24/7 customer support</li>
+            </ul>
+        </div>
+        
+        <div class="auth-container">
+            <!-- Login Page -->
+            <div id="loginPage" class="page active">
+                <div class="auth-card">
+                    <div class="logo">
+                        <i class="fas fa-shield-alt"></i>
+                        <h1>Welcome Back</h1>
+                        <p>Login to your account</p>
+                    </div>
+
+                    <form id="loginForm">
+                        <div class="form-group">
+                            <label for="loginEmail">Email Address</label>
+                            <div class="input-wrapper">
+                                <input type="email" id="loginEmail" class="form-control" placeholder="Enter your email" required>
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="loginPassword">Password</label>
+                            <div class="input-wrapper">
+                                <input type="password" id="loginPassword" class="form-control" placeholder="Enter your password" required>
+                                <i class="fas fa-lock"></i>
+                                <span class="password-toggle" onclick="togglePassword('loginPassword')">
+                                  
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="forgot-password">
+                            <a href="#" onclick="showPage('forgotPage')">Forgot Password?</a>
+                        </div>
+
+                        <button type="submit" class="btn-primary">Login</button>
+
+                        <div class="links">
+                            Don't have an account? <a href="#" onclick="showPage('registerPage')">Create Account</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Register Page -->
+            <div id="registerPage" class="page">
+                <div class="auth-card">
+                    <div class="logo">
+                        <i class="fas fa-user-plus"></i>
+                        <h1>Create Account</h1>
+                        <p>Sign up to get started</p>
+                    </div>
+
+                    <form id="registerForm">
+                        <div class="form-group">
+                            <label for="fullName">Full Name</label>
+                            <div class="input-wrapper">
+                                <input type="text" id="fullName" class="form-control" placeholder="Enter your full name" required>
+                                <i class="fas fa-user"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="registerEmail">Email Address</label>
+                            <div class="input-wrapper">
+                                <input type="email" id="registerEmail" class="form-control" placeholder="Enter your email" required>
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phoneNumber">Phone Number</label>
+                            <div class="input-wrapper">
+                                <input type="tel" id="phoneNumber" class="form-control" placeholder="Enter your phone number" required>
+                                <i class="fas fa-phone"></i>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="registerPassword">Password</label>
+                            <div class="input-wrapper">
+                                <input type="password" id="registerPassword" class="form-control" placeholder="Create a password" required oninput="checkPasswordStrength(this.value)">
+                                <i class="fas fa-lock"></i>
+                                <span class="password-toggle" onclick="togglePassword('registerPassword')">
+                                   
+                                </span>
+                            </div>
+                            <div class="password-strength">
+                                <div id="strengthBar" class="password-strength-bar"></div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="confirmPassword">Confirm Password</label>
+                            <div class="input-wrapper">
+                                <input type="password" id="confirmPassword" class="form-control" placeholder="Confirm your password" required>
+                                <i class="fas fa-lock"></i>
+                                <span class="password-toggle" onclick="togglePassword('confirmPassword')">
+                                    
+                                </span>
+                            </div>
+                        </div>
+
+                        <div class="checkbox-group">
+                            <input type="checkbox" id="terms" required>
+                            <label for="terms">I agree to the <a href="#">Terms and Conditions</a></label>
+                        </div>
+
+                        <button type="submit" class="btn-primary">Register</button>
+
+                        <div class="links">
+                            Already have an account? <a href="#" onclick="showPage('loginPage')">Login</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Forgot Password Page -->
+            <div id="forgotPage" class="page">
+                <div class="auth-card">
+                    <div class="icon-header">
+                        <i class="fas fa-key"></i>
+                        <h2>Forgot Password?</h2>
+                    </div>
+
+                    <p class="instruction">
+                        Enter your email address or phone number and we'll send you a link to reset your password.
+                    </p>
+
+                    <form id="forgotForm">
+                        <div class="form-group">
+                            <label for="resetEmail">Email or Phone</label>
+                            <div class="input-wrapper">
+                                <input type="text" id="resetEmail" class="form-control" placeholder="Enter your email or phone" required>
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                        </div>
+
+                        <button type="submit" class="btn-primary">Send Reset Link</button>
+
+                        <div class="links">
+                            <a href="#" onclick="showPage('loginPage')"><i class="fas fa-arrow-left"></i> Back to Login</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+<script src="page.js"></script>
+</body>
+</html>
