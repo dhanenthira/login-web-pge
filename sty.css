@@ -158,7 +158,7 @@
             align-items: center;
         }
 
-        .input-wrapper i {
+        .input-wrapper > i {
             position: absolute;
             left: 16px;
             color: #999;

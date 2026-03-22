@@ -45,14 +45,29 @@
         }
 
         // Form Submissions
-        document.getElementById('loginForm').addEventListener('submit', function(e) {
+        document.getElementById('loginForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
-            alert(`Login attempt with:\nEmail: ${email}\nPassword: ${password}`);
+            
+            try {
+                const res = await fetch("http://localhost:3000/login", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ email, password })
+                });
+                const data = await res.text();
+                alert(data);
+                if (data.includes("Success")) {
+                    document.getElementById('loginForm').reset();
+                }
+            } catch (err) {
+                console.error(err);
+                alert("Error connecting to server");
+            }
         });
 
-        document.getElementById('registerForm').addEventListener('submit', function(e) {
+        document.getElementById('registerForm').addEventListener('submit', async function(e) {
             e.preventDefault();
             const password = document.getElementById('registerPassword').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
@@ -62,15 +77,27 @@
                 return;
             }
 
-            const formData = {
-                name: document.getElementById('fullName').value,
-                email: document.getElementById('registerEmail').value,
-                phone: document.getElementById('phoneNumber').value,
-                password: password
-            };
+            const name = document.getElementById('fullName').value;
+            const email = document.getElementById('registerEmail').value;
+            const phone = document.getElementById('phoneNumber').value;
             
-            alert(`Registration successful!\n${JSON.stringify(formData, null, 2)}`);
-            showPage('loginPage');
+            try {
+                const res = await fetch("http://localhost:3000/register", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ name, email, phone, password })
+                });
+
+                const data = await res.text();
+                alert(data);
+                if (data.includes("Successful")) {
+                    document.getElementById('registerForm').reset();
+                    showPage('loginPage');
+                }
+            } catch (err) {
+                console.error(err);
+                alert("Error connecting to server");
+            }
         });
 
         document.getElementById('forgotForm').addEventListener('submit', function(e) {
@@ -91,5 +118,4 @@
                     this.parentElement.querySelector('i').style.color = '#999';
                 }
             });
-        });
-  
+        });
